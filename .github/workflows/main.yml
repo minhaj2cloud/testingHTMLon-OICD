@@ -26,6 +26,7 @@ jobs:
         with:
           aws_s3_bucket: ${{ secrets.AWS_S3_BUCKET }}
           args: >-
+            --dryrun
             --exclude ".git/*"
             --exclude ".git/**"
             --exclude ".github/*"
