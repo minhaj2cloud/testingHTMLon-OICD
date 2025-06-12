@@ -26,4 +26,5 @@ jobs:
         with:
           aws_s3_bucket: ${{ secrets.AWS_S3_BUCKET }}
           source_dir: .   # sync current repo root (where index.html is)
-          args: --delete --exclude ".git/*" --exclude ".github/*" --include "index.html"
+          args: --delete --exclude ".git*" --exclude ".github*" --include "index.html"
+
