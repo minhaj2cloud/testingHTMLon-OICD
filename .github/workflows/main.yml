@@ -22,7 +22,7 @@ jobs:
           aws-region: ap-south-1
 
       - name: Run S3 Sync Action
-        uses: ./  # if your action is in the root of this repo
+        uses: ./  # if your action is in  root of this repo
         with:
           aws_s3_bucket: ${{ secrets.AWS_S3_BUCKET }}
           source_dir: public
