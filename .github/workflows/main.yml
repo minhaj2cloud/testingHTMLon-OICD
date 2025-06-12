@@ -22,8 +22,8 @@ jobs:
           aws-region: ap-south-1
 
       - name: Run S3 Sync Action
-        uses: ./  # if your action is in  root of this repo
+        uses: minhaj2cloud/s3-sync-action-OIDC-Support@main
         with:
           aws_s3_bucket: ${{ secrets.AWS_S3_BUCKET }}
-          source_dir: public
+          source_dir: .   # sync current repo root (where index.html is)
           args: --delete
