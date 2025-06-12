@@ -25,9 +25,5 @@ jobs:
         uses: minhaj2cloud/s3-sync-action-OIDC-Support@main
         with:
           aws_s3_bucket: ${{ secrets.AWS_S3_BUCKET }}
-          args: >-
-            --dryrun
-            --exclude ".git/*"
-            --exclude ".git/**"
-            --exclude ".github/*"
-            --exclude ".github/**"
+          source_dir: .
+          args: --delete --exclude ".git*" --exclude ".github*" --include "index.html"
