@@ -26,5 +26,5 @@ jobs:
         with:
           aws_s3_bucket: ${{ secrets.AWS_S3_BUCKET }}
           source_dir: .   # sync current repo root (where index.html is)
-          args: --acl public-read  --follow-symlinks --delete --exclude '.git/*' --exclude '.github/*' --exclude 'assets/*'
+          args: --delete --exclude "*" --include "index.html"
 
