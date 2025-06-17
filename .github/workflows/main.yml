@@ -3,7 +3,7 @@ name: Deploy to S3 with OIDC
 on:
   push:
     branches:
-      - main
+    - main
 
 permissions:
   id-token: write
@@ -13,17 +13,37 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Configure AWS credentials (OIDC)
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::645508719107:role/actiontestingusingoidc
-          aws-region: ap-south-1
-          
-      - name: Run S3 Sync Action
-        uses: minhaj2cloud/s3-sync-action-OIDC-Support@main
-        with:
-          aws_s3_bucket: ${{ secrets.AWS_S3_BUCKET }}
-          source_dir: .
-          args: '--delete --exclude ".git/*" --exclude ".github/*"'
+    - uses: actions/checkout@v4
+    
+    - name: Configure AWS credentials (OIDC)
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::645508719107:role/actiontestingusingoidc
+        aws-region: ap-south-1
+        
+    - name: Run S3 Sync Action (Regular)
+      uses: minhaj2cloud/s3-sync-action-OIDC-Support@main
+      with:
+        aws_s3_bucket: ${{ secrets.AWS_S3_BUCKET }}
+        source_dir: .
+        args: --delete --exclude ".git/*" --exclude ".github/*"
+
+  deploy-metadata:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Configure AWS credentials (OIDC)
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::645508719107:role/actiontestingusingoidc
+        aws-region: ap-south-1
+        
+    - name: Run S3 Sync Action (Metadata)
+      uses: minhaj2cloud/s3-sync-action-OIDC-Support@main
+      with:
+        aws_s3_bucket: ${{ secrets.AWS_S3_BUCKET }}
+        source_dir: .
+        metadata_sync: "true"
+        args: --delete --exclude ".git/*" --exclude ".github/*"
