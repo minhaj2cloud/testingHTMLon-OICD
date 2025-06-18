@@ -19,7 +19,7 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::645508719107:role/actiontestingusingoidc
+          role-to-assume: ${{ secrets.AWS_OIDC }} 
           aws-region: ap-south-1
       
       - name: Run S3 Sync Action
@@ -38,7 +38,7 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::645508719107:role/actiontestingusingoidc
+          role-to-assume: ${{ secrets.AWS_OIDC }}
           aws-region: ap-south-1
       
       - name: Run S3 Sync Metadata Action
